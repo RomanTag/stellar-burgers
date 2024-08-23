@@ -43,7 +43,7 @@ export const ingredientsSlice = createSlice({
   }
 });
 
-// Определение селекторов
+// Экспорт селекторов
 export const getIngredientsState = (state: {
   ingredients: TIngredientsState;
 }) => state.ingredients;

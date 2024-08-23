@@ -24,7 +24,7 @@ describe('тесты feedsSlice', () => {
     const total = getTotalFeeds(store.getState());
     const totalToday = getTotalTodayFeeds(store.getState());
 
-    // Проверка, что селекторы возвращают правильные данные
+    // Проверяем, что селекторы возвращают правильные данные
     expect(orders).toEqual(feedsMockData.orders);
     expect(total).toEqual(feedsMockData.total);
     expect(totalToday).toEqual(feedsMockData.totalToday);
@@ -37,7 +37,7 @@ describe('тесты feedsSlice', () => {
     };
     const stateReceived = feedsSlice.reducer(initialState, action);
 
-    // Проверка состояния после успешного выполнения запроса
+    // Проверяем состояния после успешного выполнения запроса
     expect(stateReceived.orders).toEqual(feedsMockData.orders);
     expect(stateReceived.total).toEqual(feedsMockData.total);
     expect(stateReceived.totalToday).toEqual(feedsMockData.totalToday);
@@ -51,7 +51,7 @@ describe('тесты feedsSlice', () => {
       getAllFeeds.rejected(error, '')
     );
 
-    // Проверка состояния после отклоненного запроса
+    // Проверяем состояния после отклоненного запроса
     expect(stateReceived.orders).toEqual([]);
     expect(stateReceived.total).toEqual(0);
     expect(stateReceived.totalToday).toEqual(0);
@@ -65,7 +65,7 @@ describe('тесты feedsSlice', () => {
       getAllFeeds.pending('')
     );
 
-    // Проверка состояния при ожидании выполнения запроса
+    // Проверяем состояния при ожидании выполнения запроса
     expect(stateReceived.isLoading).toEqual(true);
   });
 });

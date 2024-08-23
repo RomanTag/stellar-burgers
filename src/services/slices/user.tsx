@@ -72,7 +72,7 @@ export const userSlice = createSlice({
   }
 });
 
-// Селекторы
+// Экспорт селекторов
 export const isAuthCheckedSelector = (state: { user: TUserState }) =>
   state.user.isAuthChecked;
 export const getUser = (state: { user: TUserState }): TUser => state.user.user;

@@ -46,7 +46,7 @@ export const feedsSlice = createSlice({
   }
 });
 
-// Определение селекторов
+// Экспорт селекторов
 export const getOrdersFeeds = (state: { feeds: TFeedsState }) =>
   state.feeds.orders;
 export const getTotalFeeds = (state: { feeds: TFeedsState }) =>
