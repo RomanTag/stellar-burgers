@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import { getFeedsApi } from '@api';
+import { getFeedsApi } from '../../utils/burger-api';
+
 export const getAllFeeds = createAsyncThunk('orders/getAll', getFeedsApi);
 
 export interface TFeedsState {
@@ -11,11 +12,11 @@ export interface TFeedsState {
   error: string | undefined;
 }
 
-const initialState: TFeedsState = {
+export const initialState: TFeedsState = {
   orders: [],
   total: 0,
   totalToday: 0,
-  isLoading: true,
+  isLoading: false,
   error: undefined
 };
 
@@ -23,11 +24,6 @@ export const feedsSlice = createSlice({
   name: 'feeds',
   initialState,
   reducers: {},
-  selectors: {
-    getOrdersFeeds: (state) => state.orders,
-    getTotalFeeds: (state) => state.total,
-    getTotalTodayFeeds: (state) => state.totalToday
-  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllFeeds.fulfilled, (state, action) => {
@@ -50,5 +46,10 @@ export const feedsSlice = createSlice({
   }
 });
 
-export const { getOrdersFeeds, getTotalFeeds, getTotalTodayFeeds } =
-  feedsSlice.selectors;
+// Определение селекторов
+export const getOrdersFeeds = (state: { feeds: TFeedsState }) =>
+  state.feeds.orders;
+export const getTotalFeeds = (state: { feeds: TFeedsState }) =>
+  state.feeds.total;
+export const getTotalTodayFeeds = (state: { feeds: TFeedsState }) =>
+  state.feeds.totalToday;
