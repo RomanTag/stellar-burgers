@@ -45,7 +45,7 @@ export const newOrderSlice = createSlice({
   }
 });
 
-// Экспорт селекторов для доступа к состоянию
+// Экспорт селекторов
 export const getOrderRequest = (state: { newOrder: TNewOrderState }) =>
   state.newOrder.orderRequest;
 export const getOrderModalData = (state: { newOrder: TNewOrderState }) =>

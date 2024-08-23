@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1724456296384" clover="3.2.0">
-  <project timestamp="1724456296384" name="All files">
-    <metrics statements="1217" coveredstatements="1006" conditionals="61" coveredconditionals="56" methods="44" coveredmethods="26" elements="1322" coveredelements="1088" complexity="0" loc="1217" ncloc="1217" packages="3" files="10" classes="10"/>
+<coverage generated="1724456864434" clover="3.2.0">
+  <project timestamp="1724456864434" name="All files">
+    <metrics statements="1218" coveredstatements="1007" conditionals="61" coveredconditionals="56" methods="44" coveredmethods="26" elements="1323" coveredelements="1089" complexity="0" loc="1218" ncloc="1218" packages="3" files="10" classes="10"/>
     <package name="services">
       <metrics statements="569" coveredstatements="569" conditionals="7" coveredconditionals="7" methods="0" coveredmethods="0"/>
       <file name="rootReducer.ts" path="/Users/romanvaleev/Desktop/dev/stellar-burgers/src/services/rootReducer.ts">
@@ -581,9 +581,9 @@
       </file>
     </package>
     <package name="services.slices">
-      <metrics statements="350" coveredstatements="350" conditionals="54" coveredconditionals="49" methods="26" coveredmethods="26"/>
+      <metrics statements="351" coveredstatements="351" conditionals="54" coveredconditionals="49" methods="26" coveredmethods="26"/>
       <file name="constructor.tsx" path="/Users/romanvaleev/Desktop/dev/stellar-burgers/src/services/slices/constructor.tsx">
-        <metrics statements="57" coveredstatements="57" conditionals="9" coveredconditionals="9" methods="7" coveredmethods="7"/>
+        <metrics statements="58" coveredstatements="58" conditionals="9" coveredconditionals="9" methods="7" coveredmethods="7"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -641,6 +641,7 @@
         <line num="55" count="1" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
       </file>
       <file name="feeds.tsx" path="/Users/romanvaleev/Desktop/dev/stellar-burgers/src/services/slices/feeds.tsx">
         <metrics statements="55" coveredstatements="55" conditionals="7" coveredconditionals="7" methods="4" coveredmethods="4"/>
