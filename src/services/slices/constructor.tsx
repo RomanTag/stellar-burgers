@@ -52,6 +52,7 @@ export const constructorSlice = createSlice({
   }
 });
 
+// Экспорт селекторов
 export const { addItem, deleteItem, clearAll, updateAll, swapIngredient } =
   constructorSlice.actions;
 export const constructorSelector = constructorSlice.selectors;
