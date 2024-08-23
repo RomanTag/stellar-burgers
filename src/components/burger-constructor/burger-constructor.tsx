@@ -15,7 +15,6 @@ import {
 import { isAuthCheckedSelector } from '../../services/slices/user';
 import { useNavigate } from 'react-router-dom';
 
-// Компонент конструктора бургера
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,7 +23,6 @@ export const BurgerConstructor: FC = () => {
   const orderModalData = useSelector(getOrderModalData);
   const isAuth = useSelector(isAuthCheckedSelector);
 
-  // Обработка клика на кнопку заказа
   const onOrderClick = () => {
     if (!isAuth) {
       return navigate('/login');
@@ -39,19 +37,17 @@ export const BurgerConstructor: FC = () => {
     dispatch(placeNewOrder(orderData));
   };
 
-  // Закрытие модального окна заказа
   const closeOrderModal = () => {
     dispatch(resetOrder());
     dispatch(clearAll());
     navigate('/');
   };
 
-  // Расчет общей стоимости заказа
   const price = useMemo(
     () =>
       (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
       constructorItems.ingredients.reduce(
-        (total: number, item: TConstructorIngredient) => total + item.price,
+        (s: number, v: TConstructorIngredient) => s + v.price,
         0
       ),
     [constructorItems]

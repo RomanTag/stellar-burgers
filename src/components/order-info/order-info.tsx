@@ -3,7 +3,7 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient, TOrder } from '@utils-types';
 import { useSelector } from '../../services/store';
-import { getIngredients } from '../../services/slices/Ingredients';
+import { getIngredients } from '../../services/slices/ingredients';
 import { useParams } from 'react-router-dom';
 import { getOrderByNumberApi } from '@api';
 
@@ -14,12 +14,11 @@ export const OrderInfo: FC = () => {
     ingredients: [],
     status: '',
     name: '',
-    updatedAt: '',
+    updatedAt: 'string',
     number: 0
   });
 
-  const { number } = useParams();
-  const id = Number(number);
+  const id = Number(useParams().number);
   const ingredients: TIngredient[] = useSelector(getIngredients);
 
   const orderInfo = useMemo(() => {
@@ -32,17 +31,17 @@ export const OrderInfo: FC = () => {
     };
 
     const ingredientsInfo = orderData.ingredients.reduce(
-      (acc: TIngredientsWithCount, itemId) => {
-        if (!acc[itemId]) {
-          const ingredient = ingredients.find((ing) => ing._id === itemId);
+      (acc: TIngredientsWithCount, item) => {
+        if (!acc[item]) {
+          const ingredient = ingredients.find((ing) => ing._id === item);
           if (ingredient) {
-            acc[itemId] = {
+            acc[item] = {
               ...ingredient,
               count: 1
             };
           }
         } else {
-          acc[itemId].count++;
+          acc[item].count++;
         }
 
         return acc;
@@ -64,12 +63,10 @@ export const OrderInfo: FC = () => {
   }, [orderData, ingredients]);
 
   useEffect(() => {
-    if (id) {
-      getOrderByNumberApi(id).then((data) => {
-        setOrderData(data.orders[0]);
-      });
-    }
-  }, [id]);
+    getOrderByNumberApi(Number(id)).then((data) => {
+      setOrderData(data.orders[0]);
+    });
+  }, []);
 
   if (!orderInfo) {
     return <Preloader />;

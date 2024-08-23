@@ -1,20 +1,11 @@
-import { getIngredientsApi } from '@api';
+import { getIngredientsApi } from '../../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 
+// Создание асинхронного действия для получения списка ингредиентов
 export const getIngredientsList = createAsyncThunk(
   'ingredients/getIngredients',
-  async (_, thunkAPI) => {
-    try {
-      console.log('Fetching ingredients...');
-      const response = await getIngredientsApi();
-      console.log('Ingredients fetched:', response);
-      return response;
-    } catch (error) {
-      console.error('Error fetching ingredients:', error);
-      return thunkAPI.rejectWithValue('Failed to fetch ingredients');
-    }
-  }
+  getIngredientsApi
 );
 
 type TIngredientsState = {
@@ -23,43 +14,41 @@ type TIngredientsState = {
   error: string | null | undefined;
 };
 
-const initialState: TIngredientsState = {
+// Начальное состояние
+export const initialState: TIngredientsState = {
   ingredients: [],
   loading: false,
   error: null
 };
 
+// Создание слайса для управления состоянием ингредиентов
 export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {},
-  selectors: {
-    getIngredientsState: (state) => state,
-    getIngredientsLoadingState: (state) => state.loading,
-    getIngredients: (state) => state.ingredients
-  },
   extraReducers: (builder) => {
     builder
       .addCase(getIngredientsList.pending, (state) => {
-        console.log('Ingredients fetch pending');
         state.loading = true;
         state.error = null;
       })
       .addCase(getIngredientsList.rejected, (state, action) => {
-        console.error('Ingredients fetch failed:', action.error.message);
         state.loading = false;
         state.error = action.error.message;
       })
       .addCase(getIngredientsList.fulfilled, (state, action) => {
-        console.log('Ingredients fetch succeeded:', action.payload);
         state.loading = false;
         state.ingredients = action.payload;
       });
   }
 });
 
-export const {
-  getIngredientsState,
-  getIngredientsLoadingState,
-  getIngredients
-} = ingredientsSlice.selectors;
+// Определение селекторов
+export const getIngredientsState = (state: {
+  ingredients: TIngredientsState;
+}) => state.ingredients;
+export const getIngredientsLoadingState = (state: {
+  ingredients: TIngredientsState;
+}) => state.ingredients.loading;
+export const getIngredients = (state: { ingredients: TIngredientsState }) =>
+  state.ingredients.ingredients;

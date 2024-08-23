@@ -1,97 +1,83 @@
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { TUser } from '@utils-types';
 import {
   registerUserApi,
   loginUserApi,
   getUserApi,
   updateUserApi,
   logoutApi
-} from '@api';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { TUser } from '@utils-types';
+} from '../../utils/burger-api';
 
-export const apiGetUser = createAsyncThunk('user/getuser', getUserApi);
-export const updateUser = createAsyncThunk('user/update', updateUserApi);
 export const register = createAsyncThunk('user/register', registerUserApi);
 export const login = createAsyncThunk('user/login', loginUserApi);
+export const apiGetUser = createAsyncThunk('user/getUser', getUserApi);
+export const updateUser = createAsyncThunk('user/update', updateUserApi);
 export const logout = createAsyncThunk('user/logout', logoutApi);
+
 export interface TUserState {
   isAuthChecked: boolean;
   user: TUser;
   error: string | undefined;
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthChecked: false,
   user: {
     email: '',
     name: ''
   },
-  error: ''
+  error: undefined
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
-  selectors: {
-    isAuthCheckedSelector: (state) => state.isAuthChecked,
-    getUser: (state) => state.user,
-    getName: (state) => state.user.name,
-    getError: (state) => state.error
-  },
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, action) => {
         state.isAuthChecked = true;
         state.user = action.payload.user;
-        state.error = '';
+        state.error = undefined;
       })
       .addCase(register.rejected, (state, action) => {
-        state.error = action.error.message!;
+        state.error = action.error.message ?? 'Неизвестная ошибка';
       })
-      .addCase(register.pending, (state) => {
-        state.error = '';
-      });
-    builder
       .addCase(login.fulfilled, (state, action) => {
         state.isAuthChecked = true;
         state.user = action.payload.user;
-        state.error = '';
+        state.error = undefined;
       })
       .addCase(login.rejected, (state, action) => {
-        state.isAuthChecked = false;
-        state.error = action.error.message!;
+        state.error = action.error.message ?? 'Неизвестная ошибка';
       })
-      .addCase(login.pending, (state) => {
-        state.isAuthChecked = false;
-        state.error = '';
-      });
-    builder
       .addCase(apiGetUser.fulfilled, (state, action) => {
         state.isAuthChecked = true;
         state.user = action.payload.user;
       })
       .addCase(apiGetUser.rejected, (state, action) => {
         state.isAuthChecked = false;
-        state.error = action.error.message!;
-      });
-    builder
+        state.error = action.error.message ?? 'Неизвестная ошибка';
+      })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.isAuthChecked = true;
         state.user = action.payload.user;
       })
       .addCase(updateUser.rejected, (state, action) => {
-        state.isAuthChecked = false;
-        state.error = action.error.message!;
+        state.error = action.error.message ?? 'Неизвестная ошибка';
       })
-      .addCase(updateUser.pending, (state) => {
-        state.error = '';
+      .addCase(logout.fulfilled, (state) => {
+        state.isAuthChecked = false;
+        state.user = { email: '', name: '' };
       });
-    builder.addCase(logout.fulfilled, (state) => {
-      state.isAuthChecked = false;
-      state.user = { email: '', name: '' };
-    });
   }
 });
 
-export const { isAuthCheckedSelector, getUser, getName, getError } =
-  userSlice.selectors;
+// Селекторы
+export const isAuthCheckedSelector = (state: { user: TUserState }) =>
+  state.user.isAuthChecked;
+export const getUser = (state: { user: TUserState }): TUser => state.user.user;
+export const getName = (state: { user: TUserState }): string =>
+  state.user.user.name;
+export const getError = (state: TUserState) => state.error;
+
+export default userSlice.reducer;
