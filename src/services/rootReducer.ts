@@ -5,7 +5,7 @@ import { newOrderSlice } from './slices/newOrder';
 import { constructorSlice } from './slices/constructor';
 import { userSlice } from './slices/user';
 import { userOrdersSlice } from './slices/userOrders';
-import { ingredientsSlice } from './slices/ingredients.tsx';
+import { ingredientsSlice } from './slices/ingredients';
 
 export const rootReducer = combineReducers({
   [ingredientsSlice.name]: ingredientsSlice.reducer,
