@@ -9,9 +9,9 @@ export const getIngredientsList = createAsyncThunk(
 );
 
 type TIngredientsState = {
-  ingredients: Array<TIngredient>; // Список ингредиентов
-  loading: boolean; // Флаг загрузки
-  error: string | null | undefined; // Сообщение об ошибке, если есть
+  ingredients: Array<TIngredient>;
+  loading: boolean;
+  error: string | null | undefined;
 };
 
 // Начальное состояние для слайса ингредиентов
