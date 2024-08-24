@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for services/slices/newOrder.tsx</title>
+    <title>Code coverage report for services/slices/ingredients.tsx.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">services/slices</a> newOrder.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">services/slices</a> ingredients.tsx.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>57/57</span>
+                <span class='fraction'>59/59</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>57/57</span>
+                <span class='fraction'>59/59</span>
             </div>
         
             
@@ -120,8 +120,9 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -152,6 +153,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -159,15 +161,14 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -177,63 +178,68 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { TOrder } from '@utils-types';
-import { orderBurgerApi } from '../../utils/burger-api';
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getIngredientsApi } from '../../utils/burger-api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TIngredient } from '@utils-types';
 &nbsp;
-// Асинхронное действие для размещения нового заказа
-export const placeNewOrder = createAsyncThunk(
-  'order/createOrder',
-  orderBurgerApi
+// Создание асинхронного действия для получения списка ингредиентов
+export const getIngredientsList = createAsyncThunk(
+  'ingredients/getIngredients',
+  getIngredientsApi
 );
 &nbsp;
-export interface TNewOrderState {
-  orderRequest: boolean;
-  orderModalData: TOrder | null;
-  error: string | undefined;
-}
-&nbsp;
-// Начальное состояние
-export const initialState: TNewOrderState = {
-  orderRequest: false,
-  orderModalData: null,
-  error: undefined
+type TIngredientsState = {
+  ingredients: Array&lt;TIngredient&gt;; // Список ингредиентов
+  loading: boolean; // Флаг загрузки
+  error: string | null | undefined; // Сообщение об ошибке, если есть
 };
 &nbsp;
-export const newOrderSlice = createSlice({
-  name: 'newOrder',
+// Начальное состояние для слайса ингредиентов
+export const initialState: TIngredientsState = {
+  ingredients: [],
+  loading: false,
+  error: null
+};
+&nbsp;
+// Создание слайса для управления состоянием ингредиентов
+export const ingredientsSlice = createSlice({
+  name: 'ingredients',
   initialState,
-  reducers: {
-    resetOrder: () =&gt; initialState // Сброс состояния к начальному
-  },
+  reducers: {},
   extraReducers: (builder) =&gt; {
+    // Обработка дополнительных действий, созданных с помощью createAsyncThunk
     builder
-      .addCase(placeNewOrder.fulfilled, (state, action) =&gt; {
-        state.orderRequest = false;
-        state.orderModalData = action.payload.order; // Данные успешного заказа
-        state.error = undefined;
+      .addCase(getIngredientsList.pending, (state) =&gt; {
+        // Действие выполняется, когда запрос начался
+        state.loading = true;
+        state.error = null;
       })
-      .addCase(placeNewOrder.rejected, (state, action) =&gt; {
-        state.orderRequest = false;
-        state.error = action.error.message<span class="branch-0 cbranch-no" title="branch not covered" > ?? 'Неизвестная ошибка';</span> // Ошибка при заказе
+      .addCase(getIngredientsList.rejected, (state, action) =&gt; {
+        // Действие выполняется, если запрос завершился ошибкой
+        state.loading = false;
+        state.error = action.error.message;
       })
-      .addCase(placeNewOrder.pending, (state) =&gt; {
-        state.orderRequest = true;
-        state.error = undefined; // Ожидание выполнения заказа
+      .addCase(getIngredientsList.fulfilled, (state, action) =&gt; {
+        // Действие выполняется, если запрос успешно завершился
+        state.loading = false;
+        state.ingredients = action.payload;
       });
   }
 });
 &nbsp;
-// Экспорт селекторов
-export const getOrderRequest = (state: { newOrder: TNewOrderState }) =&gt;
-  state.newOrder.orderRequest;
-export const getOrderModalData = (state: { newOrder: TNewOrderState }) =&gt;
-  state.newOrder.orderModalData;
+// Экспорт селекторов для доступа к состоянию ингредиентов из компонента
+export const getIngredientsState = (state: {
+  ingredients: TIngredientsState;
+}) =&gt; state.ingredients;
+export const getIngredientsLoadingState = (state: {
+  ingredients: TIngredientsState;
+}) =&gt; state.ingredients.loading;
 &nbsp;
-// Экспорт действий
-export const { resetOrder } = newOrderSlice.actions;
-&nbsp;
-export default newOrderSlice.reducer;
+export const getIngredients = (state: { ingredients: TIngredientsState }) =&gt;
+  state.ingredients.ingredients; // Селектор для получения списка ингредиентов
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

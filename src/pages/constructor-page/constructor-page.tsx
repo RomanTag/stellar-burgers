@@ -9,7 +9,7 @@ import { FC, useEffect } from 'react';
 import {
   getIngredientsList,
   getIngredientsLoadingState
-} from '../../services/slices/ingredients';
+} from '../../services/slices/ingredients.tsx';
 
 export const ConstructorPage: FC = () => {
   const dispatch = useDispatch();

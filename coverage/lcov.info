@@ -762,7 +762,7 @@ BRF:7
 BRH:7
 end_of_record
 TN:
-SF:src/services/slices/ingredients.tsx
+SF:src/services/slices/ingredients.tsx.tsx
 FN:29,extraReducers
 FN:51,getIngredientsState
 FN:54,getIngredientsLoadingState
