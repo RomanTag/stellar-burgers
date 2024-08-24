@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Code coverage report for services/slices/feeds.tsx</title>
+    <title>Code coverage report for services/slices/ingredients.tsx.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
       <div class="pad1">
         <h1>
           <a href="../../index.html">All files</a> /
-          <a href="index.html">services/slices</a> feeds.tsx
+          <a href="index.html">services/slices</a> ingredients.tsx.tsx
         </h1>
         <div class="clearfix">
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">55/55</span>
+            <span class="fraction">59/59</span>
           </div>
 
           <div class="fl pad1y space-right2">
@@ -43,7 +43,7 @@
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">55/55</span>
+            <span class="fraction">59/59</span>
           </div>
         </div>
         <p class="quiet">
@@ -114,7 +114,11 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -138,6 +142,24 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -147,19 +169,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -168,62 +177,65 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { TOrder } from '@utils-types';
-import { getFeedsApi } from '../../utils/burger-api';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getIngredientsApi } from '../../utils/burger-api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TIngredient } from '@utils-types';
 &nbsp;
-export const getAllFeeds = createAsyncThunk('orders/getAll', getFeedsApi);
+// Создание асинхронного действия для получения списка ингредиентов
+export const getIngredientsList = createAsyncThunk(
+  'ingredients/getIngredients',
+  getIngredientsApi
+);
 &nbsp;
-export interface TFeedsState {
-  orders: Array&lt;TOrder&gt;;
-  total: number;
-  totalToday: number;
-  isLoading: boolean;
-  error: string | undefined;
-}
-&nbsp;
-export const initialState: TFeedsState = {
-  orders: [],
-  total: 0,
-  totalToday: 0,
-  isLoading: false,
-  error: undefined
+type TIngredientsState = {
+  ingredients: Array&lt;TIngredient&gt;; // Список ингредиентов
+  loading: boolean; // Флаг загрузки
+  error: string | null | undefined; // Сообщение об ошибке, если есть
 };
 &nbsp;
-export const feedsSlice = createSlice({
-  name: 'feeds',
+// Начальное состояние для слайса ингредиентов
+export const initialState: TIngredientsState = {
+  ingredients: [],
+  loading: false,
+  error: null
+};
+&nbsp;
+// Создание слайса для управления состоянием ингредиентов
+export const ingredientsSlice = createSlice({
+  name: 'ingredients',
   initialState,
   reducers: {},
   extraReducers: (builder) =&gt; {
+    // Обработка дополнительных действий, созданных с помощью createAsyncThunk
     builder
-      .addCase(getAllFeeds.fulfilled, (state, action) =&gt; {
-        state.orders = action.payload.orders;
-        state.total = action.payload.total;
-        state.totalToday = action.payload.totalToday;
-        state.isLoading = false;
+      .addCase(getIngredientsList.pending, (state) =&gt; {
+        // Действие выполняется, когда запрос начался
+        state.loading = true;
+        state.error = null;
       })
-      .addCase(getAllFeeds.rejected, (state, action) =&gt; {
-        state.orders = [];
-        state.total = 0;
-        state.totalToday = 0;
-        state.isLoading = false;
+      .addCase(getIngredientsList.rejected, (state, action) =&gt; {
+        // Действие выполняется, если запрос завершился ошибкой
+        state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(getAllFeeds.pending, (state) =&gt; {
-        state.isLoading = true;
-        state.error = undefined;
+      .addCase(getIngredientsList.fulfilled, (state, action) =&gt; {
+        // Действие выполняется, если запрос успешно завершился
+        state.loading = false;
+        state.ingredients = action.payload;
       });
   }
 });
 &nbsp;
-// Экспорт селекторов
-export const getOrdersFeeds = (state: { feeds: TFeedsState }) =&gt;
-  state.feeds.orders;
-export const getTotalFeeds = (state: { feeds: TFeedsState }) =&gt;
-  state.feeds.total;
-export const getTotalTodayFeeds = (state: { feeds: TFeedsState }) =&gt;
-  state.feeds.totalToday;
+// Экспорт селекторов для доступа к состоянию ингредиентов из компонента
+export const getIngredientsState = (state: {
+  ingredients: TIngredientsState;
+}) =&gt; state.ingredients;
+export const getIngredientsLoadingState = (state: {
+  ingredients: TIngredientsState;
+}) =&gt; state.ingredients.loading;
+&nbsp;
+export const getIngredients = (state: { ingredients: TIngredientsState }) =&gt;
+  state.ingredients.ingredients; // Селектор для получения списка ингредиентов
 &nbsp;</pre></td></tr></table></pre>
 
       <div class="push"></div>
@@ -238,7 +250,7 @@ export const getTotalTodayFeeds = (state: { feeds: TFeedsState }) =&gt;
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2024-08-24T08:26:08.548Z
+      at 2024-08-24T08:10:53.500Z
     </div>
     <script src="../../prettify.js"></script>
     <script>
