@@ -1,16 +1,19 @@
+const testUrl = 'http://localhost:2000';
+
 describe('тесты e2e для главной страницы и модалки', function () {
   beforeEach(() => {
     cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' });
     cy.intercept('GET', '/api/auth/user', { fixture: 'user.json' });
-    cy.visit('http://localhost:2000');
+    cy.visit(testUrl);
   });
 
   afterEach(() => {
+    // Очищаем локальное хранилище и куки после каждого теста
     cy.clearLocalStorage();
     cy.clearCookies();
   });
 
-  it('добавляем ингридиенты в конструктор', function () {
+  it('добавляем ингредиенты в конструктор', function () {
     cy.get(`[data-cy=${'buns'}]`).as('buns');
     cy.get('[data-cy=mains]').as('mains');
     cy.get('[data-cy=sauces]').as('sauces');
@@ -70,12 +73,13 @@ describe('тесты e2e оформление заказа', function () {
     cy.intercept('POST', '/api/auth/login', { fixture: 'user.json' });
     cy.intercept('GET', '/api/auth/user', { fixture: 'user.json' });
     cy.intercept('POST', '/api/orders', { fixture: 'order.json' });
-    cy.visit('http://localhost:2000');
+    cy.visit(testUrl);
     cy.setCookie('accessToken', 'accessToken');
     window.localStorage.setItem('refreshToken', 'refreshToken');
   });
 
   afterEach(() => {
+    // Очищаем локальное хранилище и куки после каждого теста
     cy.clearLocalStorage();
     cy.clearCookies();
   });

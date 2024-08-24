@@ -9,12 +9,12 @@ export const getIngredientsList = createAsyncThunk(
 );
 
 type TIngredientsState = {
-  ingredients: Array<TIngredient>;
-  loading: boolean;
-  error: string | null | undefined;
+  ingredients: Array<TIngredient>; // Список ингредиентов
+  loading: boolean; // Флаг загрузки
+  error: string | null | undefined; // Сообщение об ошибке, если есть
 };
 
-// Начальное состояние
+// Начальное состояние для слайса ингредиентов
 export const initialState: TIngredientsState = {
   ingredients: [],
   loading: false,
@@ -27,28 +27,33 @@ export const ingredientsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // Обработка дополнительных действий, созданных с помощью createAsyncThunk
     builder
       .addCase(getIngredientsList.pending, (state) => {
+        // Действие выполняется, когда запрос начался
         state.loading = true;
         state.error = null;
       })
       .addCase(getIngredientsList.rejected, (state, action) => {
+        // Действие выполняется, если запрос завершился ошибкой
         state.loading = false;
         state.error = action.error.message;
       })
       .addCase(getIngredientsList.fulfilled, (state, action) => {
+        // Действие выполняется, если запрос успешно завершился
         state.loading = false;
         state.ingredients = action.payload;
       });
   }
 });
 
-// Экспорт селекторов
+// Экспорт селекторов для доступа к состоянию ингредиентов из компонента
 export const getIngredientsState = (state: {
   ingredients: TIngredientsState;
 }) => state.ingredients;
 export const getIngredientsLoadingState = (state: {
   ingredients: TIngredientsState;
 }) => state.ingredients.loading;
+
 export const getIngredients = (state: { ingredients: TIngredientsState }) =>
-  state.ingredients.ingredients;
+  state.ingredients.ingredients; // Селектор для получения списка ингредиентов
